@@ -10,8 +10,10 @@
 </head>
 
 <body>
+
+    <h1 id="titulo-primeiro">Cadastro de Pets</h1>
+
     <div id="conteiner-principal">
-        <h2 id="titulo-principal">Cadastrar Jogos</h2>
 
         <div id="conteiner-inputs">
             <label for="input-tutor">Tutor:</label>
@@ -32,8 +34,17 @@
 
         <div id="msg"></div>
 
-        <button id="botão-CriarJogo" class="button" onclick="verificarInputs()">Cadastrar</button>
+        <div id="div-button">
+            <button id="botão-CriarPet" class="button" onclick="produzirPet()">Cadastrar</button>
+            <button id="button-listaPet" onclick="showRegister()" type="button">Ver lista</button>
+        </div>
+    </div>
 
+    <div id="sub-div">
+        <button id="button-register" onclick="backRegister()" type="button">Voltar</button>
+        <div id="user-list">
+
+        </div>
     </div>
 </body>
 
