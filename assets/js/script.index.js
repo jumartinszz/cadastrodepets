@@ -51,4 +51,14 @@ class Pet {
     }
 }
 
+const petTeste = new Pet ("julia", "scooty", "vira-lata", "06/03", "url");
+console.log(petTeste);
+
+function isURLValida(url) {
+    if (url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
