@@ -1,6 +1,6 @@
 console.log("js está ok");
 
-let haveusers = false;
+let pets = [];
 
 function verificarInputs() {
     let tutor = document.getElementById("input-tutor").value;
@@ -17,13 +17,13 @@ function verificarInputs() {
 
     if (tutor == "" || nomepet == "" || especie == "" || data == "" || imgLink == "") {
         console.log("os inputs estao vazios")
-        envieMsg('Preencha todos os campos', 'erro');
+        envieMsg('Preencha todos os campos', 'error');
         return true;
     } else if (!isURLValida(imgLink)) {
         envieMsg("URL da imagem inválida!", "error");
     } else {
         console.log("os inputs estao preenchidos");
-        envieMsg('Cadstrado com sucesso', 'sucesso');
+        envieMsg('Cadastrado com sucesso', 'sucesso');
         return false;
     }
 }
@@ -133,7 +133,7 @@ function renderizarConteudo() {
 
     array.forEach((pet) => {
         content += `
-            <div class="list-eachUser">
+            <div class="list-Pets">
                 <p><strong>Tutor:</strong> ${pet.tutor}</p>
                 <p><strong>Nome do pet:</strong> ${pet.nomepet}</p>
                 <p><strong>Espécie:</strong> ${pet.especie}</p>
@@ -146,6 +146,20 @@ function renderizarConteudo() {
     document.getElementById("user-list").innerHTML = content;
 }
 
+
+function removerItem(index) {
+    pets.splice(index, 1);
+    atualizarLista();
+  }
+
+  function atualizarLista() {
+    const lista = document.getElementById("user-list");
+    let listaHTML = "";
+  
+    renderizarConteudo();
+  
+    lista.innerHTML = listaHTML;
+  }
 
 function isURLValida(url) {
     if (url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
