@@ -26,5 +26,29 @@ function verificarInputs() {
     }
 }
 
+function envieMsg(msg, tipoMsg) {
+
+    let msgDiv = document.getElementById("msg");
+    msgDiv.innerHTML = '';
+
+    let msgParaTela = `
+    <p class='${tipoMsg}'>${msg}</p>`
+
+    msgDiv.innerHTML = msgParaTela;
+
+    setTimeout(function () {
+        msgDiv.innerHTML = '';
+    }, 3000)
+}
+
+class Pet {
+    constructor(tutor, nomepet, especie, data, imgLink) {
+        this.tutor = tutor;
+        this.nomepet = nomepet;
+        this.especie = especie;
+        this.data = data;
+        this.imgLink = imgLink;
+    }
+}
 
 
