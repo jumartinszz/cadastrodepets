@@ -54,6 +54,19 @@ class Pet {
 const petTeste = new Pet ("julia", "scooty", "vira-lata", "06/03", "url");
 console.log(petTeste);
 
+
+function adicionarPet(){
+    let tutor = document.getElementById("input-tutor").value;
+    let nomepet = document.getElementById("input-nomepet").value;
+    let especie = document.getElementById("input-especie").value;
+    let data = document.getElementById("input-data").value;
+    let imgLink = document.getElementById("input-imgLink").value;
+
+    const pet = new Pet (tutor, nomepet, especie, data, imgLink);
+    console.log(pet);
+}
+
+
 function isURLValida(url) {
     if (url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
         return true;
