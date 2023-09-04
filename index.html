@@ -3,9 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="assets/js/script.index.js"></script>
+    <link rel="stylesheet" href="assets/css/styles.index.css">
+    <title>Agenda Telefônica</title>
 </head>
+
 <body>
     
+    <h1 id="titulo-primeiro">Agenda Telefônica</h1>
+
+    <div id="conteiner-principal">
+        <div id="conteiner-inputs">
+            <input type="text" id="input-tutor" name="input-tutor" class="inputs" placeholder="Nome Completo">
+
+            <input type="text" id="input-nomepet" name="input-nomepet" class="inputs" placeholder="Telefone Fixo">
+
+            <input type="text" id="input-especie" name="input-especie" class="inputs" placeholder="Telefone Celular">
+
+            <input type="text" id="input-data" name="input-data" class="inputs" placeholder="URL da foto">
+
+            <input type="date" id="input-imgLink" name="input-imgLink" class="inputs">
+
+            <input type="text" id="input-imgLink" name="input-imgLink" class="inputs" placeholder="E-mail">
+
+            <input type="text" id="input-imgLink" name="input-imgLink" class="inputs" placeholder="CEP">
+
+            <input type="text" id="input-imgLink" name="input-imgLink" class="inputs" placeholder="Cidade">
+
+            <input type="text" id="input-imgLink" name="input-imgLink" class="inputs" placeholder="@instagram">
+
+            <input type="text" id="input-imgLink" name="input-imgLink" class="inputs" placeholder="@Github">
+        </div>
+
+        <div id="msg"></div>
+
+        <div id="div-button">
+            <button id="botão-CriarPet" class="button" onclick="adicionarContato()">Adicionar Contato</button>
+        </div>
+    </div>
+
+
 </body>
 </html>
