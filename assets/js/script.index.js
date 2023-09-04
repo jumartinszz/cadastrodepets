@@ -53,7 +53,7 @@ function envieMsg(msg, tipoMsg) {
 
 
 class Contato {
-    constructor(nome, telfixo, telcelular, imgLink, data, email, cep, cidade, instagram, github, idade) {
+    constructor(nome, telfixo, telcelular, imgLink, data, email, cep, cidade, instagram, github, id) {
         this.nome = nome;
         this.telfixo = telfixo;
         this.telcelular = telcelular;
@@ -64,7 +64,8 @@ class Contato {
         this.cidade = cidade;
         this.instagram = instagram;
         this.github = github;
-        this.idade = this.ContatoAge();;
+        this.id = id;
+        this.idade = this.ContatoAge();
     }
 
     ContatoAge(data) {
@@ -183,11 +184,38 @@ function renderizarConteudo() {
 
     array.forEach((contato) => {
         content += `
-            <div class="list-ctts">
+            <div class="list-ctts" onclick="cardInfos(id)>
                 <img src= "${contato.imgLink}">
                 <p> ${contato.nome}</p>
                 <p><strong>Celular:</strong> ${contato.telcelular}</p>
                 <p><strong>Telefone:</strong> ${contato.telfixo}</p>
+            </div>
+           `;
+    });
+    document.getElementById("user-list").innerHTML = content;
+}
+
+function cardInfos(){
+
+    let content = "";
+    const lista = bibliotecaContatos.listaContatosArray;
+
+    lista.forEach((ctt) => {
+        content += `
+            <div class="list-contatos" >
+                <img src= "${ctt.imgLink}">
+                <p> ${ctt.nome}</p>
+                <p><strong>Celular:</strong> ${ctt.telcelular}</p>
+                <p><strong>CIdentificador:</strong> ${ctt.geradorID}</p>
+                <p><strong>Telefone:</strong> ${ctt.telfixo}</p>
+                <p><strong>Data de nascimento:<strong> ${ctt.data}</p>
+                <p><strong>Idade:<strong> ${ctt.idade}</p>
+                <p><strong>Signo:<strong> ${ctt.getZodiacSign}</p>
+                <p><strong>Email:<strong> ${ctt.email}</p>
+                <p><strong>CEP:<strong> ${ctt.cep}</p>
+                <p><strong>Cidade:<strong> ${ctt.cidade}</p>
+                <p><strong>Instagram:<strong> ${ctt.instagram}</p>
+                <p><strong>Github:<strong> ${ctt.github}</p>
             </div>
            `;
     });
@@ -229,3 +257,9 @@ function isURLValida(url) {
         return false;
     }
 }
+
+function geradorID(){
+    return Math.floot(Math.random()*9999)
+}
+
+
