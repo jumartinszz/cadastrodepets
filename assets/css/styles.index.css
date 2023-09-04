@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
 
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -11,16 +11,52 @@ body {
     background-color: aliceblue;
 }
 
-#user-list{
-    background-color: aquamarine;
+#user-list {
+    background-color: rgb(255, 255, 255);
     border-radius: 8px;
     text-align: center;
     align-items: center;
     width: 50%;
-    margin: 60px;
+    margin: 100px;
     cursor: pointer;
 }
+
+#list-infos{
+    border-radius: 8px;
+    width: 50%;
+    margin-right: 10%;
+    text-align: center;
+    align-items: center;
+}
+
 h1 {
     text-align: center;
     margin-bottom: 1.25rem;
+}
+
+#todos{
+    display: flex;
+}
+
+
+#icon1{
+    width: 5%;
+    height: 5%;
+    margin-top: -2%;
+}
+#icon2{
+    width: 10%;
+    height: 10%;
+    margin-top: -2%;
+}
+#icon3{
+    width: 11%;
+    height: 11%;
+    margin-top: -2%;
+    margin-bottom: -3%;
+    margin-left: -3%;
+}
+
+.list-contatos img {
+    border-radius: 100px;
 }

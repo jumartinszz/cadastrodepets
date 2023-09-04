@@ -1,5 +1,7 @@
 console.log("js está ok");
 
+let cont = [];
+
 function verificarInputs() {
     let nome = document.getElementById("input-nome").value;
     let telfixo = document.getElementById("input-telfixo").value;
@@ -64,7 +66,8 @@ class Contato {
         this.cidade = cidade;
         this.instagram = instagram;
         this.github = github;
-        this.id = id;
+        this.id = geradorID();
+        this.signo = this.getZodiacSign();
         this.idade = this.ContatoAge();
     }
 
@@ -86,10 +89,10 @@ class Contato {
     }
 
     getZodiacSign() {
-        let birthdate = new Date(this.birthdate);
+        let birthdate = new Date(this.data);
         let day = birthdate.getDate();
         let month = birthdate.getMonth() + 1;
-        console.log("Passou pelo getSigno() da class User");
+        console.log("Passou pelo getSigno() da class Contato");
 
         if ((month == 1 && day <= 20) || (month == 12 && day >= 22)) {
             return "Capricórnio ♑";
@@ -116,7 +119,7 @@ class Contato {
         } else if ((month == 11 && day >= 23) || (month == 12 && day <= 21)) {
             return "Sagitário ♐";
         }
-    }
+    };
 }
 
 class listaContatos {
@@ -129,7 +132,39 @@ class listaContatos {
             limparInputs();
         }
     }
+
+    getContatoById(id) {
+        let contato = this.listaContatosArray.find((contato) => contato.id == id)
+        return contato
+    }
+
+    editItem(id) {
+        if (flagId == id) {
+            let item = this.listaContatosArray.find((cont) => cont.id == id)
+
+            item.nome = document.getElementById("input-nome").value;
+            item.telfixo = document.getElementById("input-telfixo").value;
+            item.telcelular = document.getElementById("input-telcelular").value;
+            item.imgLink = document.getElementById("input-imgLink").value;
+            item.data = document.getElementById("input-data").value;
+            item.email = document.getElementById("input-email").value;
+            item.cep = document.getElementById("input-cep").value;
+            item.cidade = document.getElementById("input-cidade").value;
+            item.instagram = document.getElementById("input-instagram").value;
+            item.github = document.getElementById("input-github").value;
+            item.id = flagId;
+
+            this.listaContatosArray.forEach(item1 => {
+                if (item1.id == flagId) {
+                    item1 = item;
+                    flagId = -1;
+                }
+            })
+        }
+    }
 }
+
+var flagId = -1;
 
 // const contatoTeste = new listaContatos;
 // console.log(contatoTeste);
@@ -170,7 +205,7 @@ function produzirContato() {
     bibliotecaContatos.addCont(contatar)
     renderizarConteudo()
     console.log(bibliotecaContatos);
-    
+
 
 }
 
@@ -183,8 +218,9 @@ function renderizarConteudo() {
     const array = bibliotecaContatos.listaContatosArray;
 
     array.forEach((contato) => {
+        console.log(contato.id);
         content += `
-            <div class="list-ctts" onclick="cardInfos(id)>
+            <div class="list-ctts" onclick="cardInfos(${contato.id})">
                 <img src= "${contato.imgLink}">
                 <p> ${contato.nome}</p>
                 <p><strong>Celular:</strong> ${contato.telcelular}</p>
@@ -195,31 +231,62 @@ function renderizarConteudo() {
     document.getElementById("user-list").innerHTML = content;
 }
 
-function cardInfos(){
+function cardInfos(id) {
 
     let content = "";
-    const lista = bibliotecaContatos.listaContatosArray;
+    const user = bibliotecaContatos.getContatoById(id)
+    console.log(user)
 
-    lista.forEach((ctt) => {
-        content += `
+    content += `
             <div class="list-contatos" >
-                <img src= "${ctt.imgLink}">
-                <p> ${ctt.nome}</p>
-                <p><strong>Celular:</strong> ${ctt.telcelular}</p>
-                <p><strong>CIdentificador:</strong> ${ctt.geradorID}</p>
-                <p><strong>Telefone:</strong> ${ctt.telfixo}</p>
-                <p><strong>Data de nascimento:<strong> ${ctt.data}</p>
-                <p><strong>Idade:<strong> ${ctt.idade}</p>
-                <p><strong>Signo:<strong> ${ctt.getZodiacSign}</p>
-                <p><strong>Email:<strong> ${ctt.email}</p>
-                <p><strong>CEP:<strong> ${ctt.cep}</p>
-                <p><strong>Cidade:<strong> ${ctt.cidade}</p>
-                <p><strong>Instagram:<strong> ${ctt.instagram}</p>
-                <p><strong>Github:<strong> ${ctt.github}</p>
+                <img id="fotoperfil" src= "${user.imgLink}">
+                <p><strong>Nome:</strong> ${user.nome}</p>
+                <p><strong>Celular:</strong> ${user.telcelular}</p>
+                <p><strong>Identificador:</strong> ${user.geradorID}</p>
+                <p><strong>Telefone:</strong> ${user.telfixo}</p>
+                <p><strong>Data de nascimento:<strong> ${dataPTBR(user.data)}</p>
+                <p><strong>Idade:</strong> ${user.idade}</p>
+                <p><strong>Signo:</strong> ${user.signo}</p>
+                <p><strong>Email:</strong> ${user.email}</p>
+                <p><strong>CEP:</strong> ${user.cep}</p>
+                <p><strong>Cidade:</strong> ${user.cidade}</p>
+                <p><strong>Instagram:</strong> ${user.instagram}</p>
+                <p><strong>Github:</strong> ${user.github}</p>
+                <button onclick="removerItem(${user.id})" >Remover</button>
+                <button onclick="EditarItem(${user.id})" >Editar</button>
+
+
+                <a href="https://github.com/${user.git}" target="_blank"> <img id="icon1" src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+            alt="logo do github" id="github" ></a>
+        <a href=" https://instagram.com/${user.insta}" target="_blank"> <img id="icon2" src="https://marcas-logos.net/wp-content/uploads/2020/01/instagram_icon_logo.png"
+            alt="logo do instagram" id="insta"></a>
+        <a href="https://wa.me/+55${user.telefoneCelular}" target="_blank"> <img id="icon3" src="https://static.vecteezy.com/system/resources/thumbnails/024/806/426/small/whatsapp-logo-transparent-free-png.png"
+            alt="logo do whatsapp" id="wpp"></a>
             </div>
            `;
-    });
-    document.getElementById("user-list").innerHTML = content;
+
+    document.getElementById("list-infos").innerHTML = content;
+}
+
+function removerItem(index) {
+    cont.splice(index, 1);
+    atualizarLista();
+}
+
+function atualizarLista() {
+    const lista = document.getElementById("list-infos");
+    let listaHTML = "";
+
+    renderizarConteudo();
+
+    lista.innerHTML = listaHTML;
+}
+
+
+function dataPTBR(data) {
+    let dataArray = data.split("-");
+    let dataPTBR = dataArray[2] + "/" + dataArray[1] + "/" + dataArray[0];
+    return dataPTBR;
 }
 
 function formatedCellphone(telcelular) {
@@ -234,18 +301,18 @@ function formatedCellphone(telcelular) {
     return cellphoneFormated;
 }
 
-function gerarLinkWhats (telcelular){
+function gerarLinkWhats(telcelular) {
     let link = "https://api.whatsapp.com/send?phone=55" + telcelular;
     return link;
 }
 
-function gerarLinkInsta (instagram){
+function gerarLinkInsta(instagram) {
     let link = "https://instagram.com/@" + instagram;
     return link;
 }
 
-function gerarLinkGithub (github){
-    let link = "https://api.github.com/" + github;
+function gerarLinkGithub(github) {
+    let link = "https://github.com/" + github;
     return link;
 }
 
@@ -258,8 +325,10 @@ function isURLValida(url) {
     }
 }
 
-function geradorID(){
-    return Math.floot(Math.random()*9999)
+function geradorID() {
+    return Math.floor(Math.random() * 9999)
 }
+
+
 
 
